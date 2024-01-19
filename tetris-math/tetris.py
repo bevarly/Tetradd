@@ -23,16 +23,12 @@ vel = 15
 
 screen.fill((159, 226, 191))
 
-##draw a solid blue circle in the center
 color = (114, 79, 128)
 
-
-#run until the user asks to quit
 running = True
 while running:
-    #did the user click the window close button?
     for event in pygame.event.get():
-        if event.type == KEYDOWN: #DID THEY EVER PRESS A KEYDOWN
+        if event.type == KEYDOWN:
             if event.key == K_ESCAPE:
                 running = False
 
@@ -72,8 +68,7 @@ while running:
     pygame.draw.rect(screen, color, pygame.Rect(x, y, width, height))
 
     pygame.display.flip()
-    # flip the display
 
-
-#done
 pygame.quit()
+
+#next task: make object keep moving as key is pressed down.
