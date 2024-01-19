@@ -12,7 +12,7 @@ x = 200
 y = 1
 width = 20
 height = 20
-vel = 15
+vel = 5
 screen.fill((159, 226, 191))
 color = (114, 79, 128)
 
@@ -31,13 +31,6 @@ while running:
             y+= vel
             color = (114, 79, 128)
             pygame.draw.rect(screen, color, pygame.Rect(x, y, width, height))
-            keys_not = pygame.K_END
-        if keys[pygame.K_UP] and y>0:
-            color = (159, 226, 191)
-            pygame.draw.rect(screen, color, pygame.Rect(x, y, width, height))
-            y-= vel
-            color = (114, 79, 128)
-            pygame.draw.rect(screen, color, pygame.Rect(x, y, width, height))
         if keys[pygame.K_LEFT] and x>0:
             color = (159, 226, 191)
             pygame.draw.rect(screen, color, pygame.Rect(x, y, width, height))
@@ -51,5 +44,20 @@ while running:
             color = (114, 79, 128)
             pygame.draw.rect(screen, color, pygame.Rect(x, y, width, height))
     pygame.draw.rect(screen, color, pygame.Rect(x, y, width, height))
+
+    #***********************************************************
+    for i in range(1):
+        if i < 1:
+            color = (159, 226, 191)
+            pygame.draw.rect(screen, color, pygame.Rect(x, y, width, height))
+            y += 10
+            color = (114, 79, 128)
+            pygame.draw.rect(screen, color, pygame.Rect(x, y, width, height))
+            time.sleep(0.5)
+        else:
+            break
+        #code above needs hella work
+
     pygame.display.flip()
 pygame.quit()
+
