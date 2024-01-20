@@ -6,3 +6,4 @@ GOALS
 2. need to set up equations that trigger the start of the free fall.
 3. spawn new objects after it falls to the bottom 
 4. have objects stack  on each other rather than fall through the screen 
+
