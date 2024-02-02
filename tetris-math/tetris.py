@@ -61,5 +61,5 @@ while running:
     pygame.display.flip()
 pygame.quit()
 
-def freefall()
+#def freefall()
 

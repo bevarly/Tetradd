@@ -17,7 +17,7 @@ rectColor = (114, 79, 128)
 
 x = 225
 y = 1
-vel = 5
+CONSTANT_VEL = 5
 running = True
 while running:
     clock.tick(100)
@@ -30,11 +30,11 @@ while running:
         running = False
         break
     if keys[K_DOWN] and y < 650:
-        y += vel
+        y += CONSTANT_VEL
     if keys[K_LEFT] and x > 0:
-        x -= vel
+        x -= CONSTANT_VEL
     if keys[K_RIGHT] and x < 430:
-        x += vel
+        x += CONSTANT_VEL
 
     y += 1
     if y > 650:
