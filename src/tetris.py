@@ -23,8 +23,8 @@ width = 20
 height = 20
 screenColor = (159, 226, 191)
 rectColor = (114, 79, 169)
-color_on = (0, 0, 0)
-color_off = (237, 199, 250)
+color_on = (237, 199, 250)
+color_off = (0, 0, 0)
 color = color_off
 
 
@@ -103,5 +103,5 @@ while running:
 
     pygame.draw.rect(screen, rectColor, pygame.Rect(x, y, width, height))
     pygame.display.flip()
-pygame.quit()
+pygame.quit() 
 
