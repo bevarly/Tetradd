@@ -104,7 +104,7 @@ while running:
     screen.blit(equation_text, (equation_box.x + 5, equation_box.y + 5))
 
     pygame.draw.rect(screen, rectColor, pygame.Rect(x, y, width, height))
-    moving_blocks = pygame.draw.polygon(screen, (255, 255, 255), [(20, 40), (20, 70), (50, 70), (50, 55), (30, 55), (30, 40)])
+    moving_blocks = pygame.draw.polygon(screen, (255, 255, 255), [(20, 40), (20, 90), (55, 90), (55, 75), (35, 75), (35, 40)])
     
     pygame.display.flip()
 pygame.quit() 
