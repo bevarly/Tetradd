@@ -14,7 +14,6 @@ base_font = pygame.font.Font('Eight-Bit Madness.ttf', 32)
 answer_box = pygame.Rect(90, 50, 60, 30)
 equation_rect = pygame.Rect(20, 50, 60, 30)
 
-
 game_title = 'Tetradd'
 user_text = ''
 equation = ''
@@ -59,6 +58,7 @@ while running:
                     user_text = user_text[0:-1]
                 else:
                     user_text += event.unicode
+
     y += 0
     user_correct = False
     if str_sum == user_text:
@@ -84,7 +84,6 @@ while running:
             sum = num1 + num2
             str_sum = str(sum)
 
-
     screen.fill(screenColor)
     border = pygame.draw.rect(screen, (114, 79, 169), pygame.Rect(0, 0, 450, 120))
     text_surface = base_font.render(game_title, True, (255, 255, 255))
@@ -103,9 +102,21 @@ while running:
     equation_text = base_font.render(equation, True, (255, 255, 255))
     screen.blit(equation_text, (equation_box.x + 5, equation_box.y + 5))
 
-    pygame.draw.rect(screen, rectColor, pygame.Rect(x, y, width, height))
-    moving_blocks = pygame.draw.polygon(screen, (255, 255, 255), [(20, 40), (20, 90), (55, 90), (55, 75), (35, 75), (35, 40)])
+    polygon = [(x, y), (x, y + 50), (x + 35, y + 50), (x + 35, y + 35), (x + 15, y + 35), (x + 15, y)]
+    moving_blocks = pygame.draw.polygon(screen, (255, 255, 255), polygon)
+    turned_point = []
+    for event in pygame.event.get():
+        if event.type == pygame.K_SPACE:
+            for x in polygon:
+                #rotated_point = pygame.transform.rotate(x, 45)
+
+
+
+
+
+
     
     pygame.display.flip()
-pygame.quit() 
+pygame.quit()
 
+# [(20, 40), (20, 90), (55, 90), (55, 75), (35, 75), (35, 40)])
