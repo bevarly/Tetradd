@@ -105,15 +105,10 @@ while running:
     polygon = [(x, y), (x, y + 50), (x + 35, y + 50), (x + 35, y + 35), (x + 15, y + 35), (x + 15, y)]
     moving_blocks = pygame.draw.polygon(screen, (255, 255, 255), polygon)
     turned_point = []
-    for event in pygame.event.get():
-        if event.type == pygame.K_SPACE:
-            for x in polygon:
-                #rotated_point = pygame.transform.rotate(x, 45)
-
-
-
-
-
+    # for event in pygame.event.get():
+    #     if event.type == pygame.K_SPACE:
+    #         for x in polygon:
+    #             #rotated_point = pygame.transform.rotate(x, 45)
 
     
     pygame.display.flip()
