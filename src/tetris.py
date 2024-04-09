@@ -9,6 +9,11 @@ from pygame.locals import(
     K_SPACE
 )
 import math
+
+class Shape:
+
+
+
 pygame.init()
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode([450, 700])
@@ -45,7 +50,7 @@ y = 120 #starting blocks height
 CONSTANT_VEL = 5
 #addition
 rotation_angle = 0 #initial rotation angle
-rotation_speed = 0.1 #rotation speed in radians
+rotation_speed = 0.5
 
 running = True
 while running:
@@ -80,9 +85,9 @@ while running:
             x -= CONSTANT_VEL
         if keys[K_RIGHT] and x < 430:
             x += CONSTANT_VEL
-        if keys[K_SPACE]: # If spacebar is pressed
+        if keys[K_SPACE]:
             rotation_angle += math.pi / 2 # Rotate by 90 degrees
-        if user_correct == True and y > 650:
+        if user_correct == True and y > 650: #after each correct answer -
             user_text = ''
             rotation_angle = 0
             x = 210 #setting x and y for each correct answer
@@ -112,6 +117,7 @@ while running:
     equation_text = base_font.render(equation, True, (255, 255, 255))
     screen.blit(equation_text, (equation_box.x + 5, equation_box.y + 5))
 
+    # L shape
     rotated_polygon = []
     for point in [(x, y), (x, y + 50), (x + 35, y + 50), (x + 35, y + 35), (x + 15, y + 35), (x + 15, y)]:
         rotated_point = (
@@ -119,7 +125,18 @@ while running:
             (point[0] - x) * math.sin(rotation_angle) + (point[1] - y) * math.cos(rotation_angle) + y
         )
         rotated_polygon.append(rotated_point)
+    # square shape
+    rotated_polygon_2 = []
+    for point in [(x, y), (x, y + 50), (x + 50, y + 50), (x + 50, y + 50), (x + 50, y + 50), (x + 50, y)]:
+        rotated_point = (
+            (point[0] - x) * math.cos(rotation_angle) - (point[1] - y) * math.sin(rotation_angle) + x,
+            (point[0] - x) * math.sin(rotation_angle) + (point[1] - y) * math.cos(rotation_angle) + y
+        )
+        rotated_polygon_2.append(rotated_point)
+
+
     moving_blocks = pygame.draw.polygon(screen, (255, 255, 255), rotated_polygon)
+    moving_blocks = pygame.draw.polygon(screen, (255, 255, 255), rotated_polygon_2)
 
     pygame.display.flip()
 pygame.quit()
