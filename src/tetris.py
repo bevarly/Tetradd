@@ -10,10 +10,6 @@ from pygame.locals import(
 )
 import math
 
-class Shape:
-
-
-
 pygame.init()
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode([450, 700])
