@@ -10,61 +10,55 @@ from pygame.locals import(
 )
 import math
 
-pygame.init()
-clock = pygame.time.Clock()
-screen = pygame.display.set_mode([450, 700])
-base_font = pygame.font.Font('Eight-Bit Madness.ttf', 32)
-answer_box = pygame.Rect(90, 50, 60, 30)
-equation_rect = pygame.Rect(20, 50, 60, 30)
-
-game_title = 'Tetradd'
-user_text = ''
-equation = ''
-str_sum = ''
-
-
-width = 20
-height = 20
-screenColor = (159, 226, 191)
-rectColor = (114, 79, 169)
-color_on = (237, 199, 250)
-color_off = (0, 0, 0)
-color = color_off
-
-
-num_list = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-num1 = random.choice(num_list)
-num2 = random.choice(num_list)
-equation = str(num1) + "+" + str(num2)
-sum = num1 + num2
-str_sum = str(sum)
-
-active = False
-
-x = 210
-y = 120 #starting blocks height
-CONSTANT_VEL = 5
-#addition
-rotation_angle = 0 #initial rotation angle
-rotation_speed = 0.5
-
-running = True
-while running:
-    clock.tick(100)
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            running = False
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if answer_box.collidepoint(event.pos):
-                active = True
-            else:
-                active = False
-        if event.type == pygame.KEYDOWN:
-            if active == True:
-                if event.key == pygame.K_BACKSPACE:
-                    user_text = user_text[0:-1]
-                else:
-                    user_text += event.unicode
+class Tetradd:
+    def __init__(self):
+        pygame.init()
+        self.clock = pygame.time.Clock()
+        self.screen = pygame.display.set_mode([450, 700])
+        self.base_font = pygame.font.Font('Eight-Bit Madness.ttf', 32)
+        self.answer_box = pygame.Rect(90, 50, 60, 30)
+        self.equation_rect = pygame.Rect(20, 50, 60, 30)
+        self.game_title = 'Tetradd'
+        self.user_text = ''
+        self.equation = ''
+        self.str_sum = ''
+        self.width = 20
+        self.height = 20
+        self.screenColor = (159, 226, 191)
+        self.rectColor = (114, 79, 169)
+        self.color_on = (237, 199, 250)
+        self.color_off = (0, 0, 0)
+        #self.num_list = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        self.num1 = random.choice(num_list)
+        self.num2 = random.choice(num_list)
+        self.equation = str(num1) + "+" + str(num2)
+        self.sum = num1 + num2
+        self.str_sum = str(sum)
+        self.active = False
+        self.x = 210
+        self.y = 120 #starting blocks height
+        self.CONSTANT_VEL = 5
+        #addition
+        self.rotation_angle = 0 #initial rotation angle
+        self.rotation_speed = 0.5
+    def event_list:
+        running = True
+        while running:
+            clock.tick(100)
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    running = False
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if answer_box.collidepoint(event.pos):
+                        active = True
+                    else:
+                        active = False
+                if event.type == pygame.KEYDOWN:
+                    if active == True:
+                        if event.key == pygame.K_BACKSPACE:
+                            user_text = user_text[0:-1]
+                        else:
+                            user_text += event.unicode
 
     y += 0
     user_correct = False
