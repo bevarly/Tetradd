@@ -97,6 +97,10 @@ class Tetradd:
             pygame.draw.rect(self.screen, self.color_on, self.equation_rect, 2)
             equation_text = self.base_font.render(self.equation, True, (255, 255, 255))
             self.screen.blit(equation_text, (self.equation_rect.x + 5, self.equation_rect.y + 5))
+
+
+            #L Shape
+            pygame.draw.rect(self.screen, (34, 23), 3342, 3423)
             pygame.display.flip()
 
     def quit(self):
