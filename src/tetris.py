@@ -9,10 +9,9 @@ from pygame.locals import (
     K_SPACE
 )
 import math
+import time
 
 
-# screenColor = (159, 226, 191)
-# screen = pygame.display.set_mode([450, 700])
 class Rects:
     def __init__(self):
         self.screen = pygame.display.set_mode([450, 700])
@@ -29,132 +28,69 @@ class Rects:
         self.num_list = [1, 2, 3, 4, 5, 6, 7, 8, 9]
         self.num1 = random.choice(self.num_list)
         self.num2 = random.choice(self.num_list)
-        self.equation = str(self.num1) + "+" + str(self.num2)
-        #child class attributes were not working moved to parent
-        self.sum = self.num1 + self.num2
-        self.str_sum = str(self.sum)
+        self.question_string = str(self.num1) + "+" + str(self.num2)
+        self.answer = self.num1 + self.num2
+        self.str_sum = str(self.answer)
+        self.x = 210
+        self.y = 120
+        self.movement = 275
 
     def screenfill(self):
         self.screen.fill(self.colors)
         pygame.draw.rect(self.screen, (114, 79, 169), pygame.Rect(0, 0, 450, 120))
         self.screen.blit(self.fonts.render('Tetradd', True, (255, 255, 255)), (173, 10))
 
-    def answer_rect(self): #user input box
+    def answer_rect(self):  #user input box
         color = self.color_on if self.active else self.color_off
         pygame.draw.rect(self.screen, color, self.answer_box, 2)
         user_answer = self.fonts.render(self.user_ans, True, (40, 253, 21))
         self.screen.blit(user_answer, (self.answer_box.x + 5, self.answer_box.y + 5))
         self.answer_box.w = user_answer.get_width() + 30
 
-    def num_rect(self): #question box
-        equation = ""
+    def num_rect(self):  #question box
         pygame.draw.rect(self.screen, self.color_on, self.equation_rect, 2)
-        equation_text = self.fonts.render(equation, True, (255, 255, 255))
+        equation_text = self.fonts.render(self.question_string, True, (255, 255, 255))
         self.screen.blit(equation_text, (self.equation_rect.x + 5, self.equation_rect.y + 5))
+        return self.str_sum
+
+    def correct_pop(self): #correct popup
+        message_on = True
+        for t in range(10):
+            text = " "
+            if message_on:
+                text = "CORRECT!"
+            else:
+                text = ""
+            message_on = not message_on
+            self.screen.fill((0, 0, 0), (145, 295, 160, 30))
+            self.screen.blit(self.fonts.render(text, True, (240, 80, 226)), (165, 300))
+            pygame.time.delay(100)
+            pygame.display.flip()
+            pygame.time.delay(0)
+
+    def square_rect(self): #square shape
+        pygame.draw.rect(self.screen, (0, 0, 0), (self.x-2, self.y, 44, 44))
+        pygame.draw.rect(self.screen, (253, 216, 53), (self.x, self.y+2, 40, 40))
+
+    def mascot_rect(self): #dog goes into abyss
+        if self.user_ans != "":
+            doggy = pygame.draw.rect(self.screen, (114, 79, 169 ), (self.movement, 40, 80, 80))
+            image = pygame.image.load('pixel-art-cute-fox-png-t3atin7a90wibunw.png')
+            image = pygame.transform.scale(image, (doggy.height, doggy.width))
+            self.screen.blit(image, doggy)
+
+
+
 
 
 class Nums(Rects):
-    def __int__(self):
-        #is not recognizing the child class attributes
-        self.sum = self.num1 + self.num2
-        self.str_sum = str(self.sum)
 
-    def prob_nums(self): #num generator
-        pygame.draw.rect(self.screen, self.color_on, self.equation_rect, 2)
-        equation_text = self.fonts.render(self.equation, True, (255, 255, 255))
-        self.screen.blit(equation_text, (self.equation_rect.x + 5, self.equation_rect.y + 5))
-
-
-# class Tetradd:
-#     def __init__(self):
-#         self.game_title = 'Tetradd'
-#         self.user_text = ''
-#         self.equation = ''
-#         self.str_sum = ''
-
-#         self.color_on = (237, 199, 250)
-#         self.color_off = (0, 0, 0)
-#         self.num_list = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-
-#         self.num1 = random.choice(self.num_list)
-#         self.num2 = random.choice(self.num_list)
-#         self.equation = str(self.num1) + "+" + str(self.num2)
-#         self.sum = self.num1 + self.num2
-#         self.str_sum = str(self.sum)
-#         self.active = False
-#         self.x = 210
-#         self.y = 120  # starting blocks height
-#         self.CONSTANT_VEL = 5
-#         # addition
-#         self.rotation_angle = 0  # initial rotation angle
-#         self.user_correct = False
-#         self.running = True
-#
-#
-#     def event_list(self):
-#         while self.running:
-#             self.clock.tick(60)
-#             for event in pygame.event.get():
-#                 if event.type == QUIT:
-#                     self.running = False
-#                 if event.type == pygame.MOUSEBUTTONDOWN:
-#                     if self.answer_box.collidepoint(event.pos):
-#                         self.active = True
-#                     else:
-#                         self.active = False
-#                 if event.type == pygame.KEYDOWN:
-#                     if self.active:
-#                         if event.key == pygame.K_BACKSPACE:
-#                             self.user_text = self.user_text[0:-1]
-#                         else:
-#                             self.user_text += event.unicode
-#
-#             if self.str_sum == self.user_text:
-#                 self.y += 1
-#                 self.user_correct = True
-#                 keys = pygame.key.get_pressed()
-#                 if keys[K_ESCAPE]:
-#                     self.running = False
-#                     self.quit()
-#                 if keys[K_DOWN] and self.y < 650:
-#                     self.y += self.CONSTANT_VEL
-#                 if keys[K_LEFT] and self.x > 0:
-#                     self.x -= self.CONSTANT_VEL
-#                 if keys[K_RIGHT] and self.x < 430:
-#                     self.x += self.CONSTANT_VEL
-#                 if keys[K_SPACE]:
-#                     self.rotation_angle += math.pi / 2  # Rotate by 90 degrees
-#                 if self.user_correct and self.y > 650:  # after each correct answer
-#                     self.user_text = ""
-#                     self.rotation_angle = 0
-#                     self.x = 210  # setting x and y for each correct answer
-#                     self.y = 120
-#                     self.num1 = random.choice(self.num_list)
-#                     self.num2 = random.choice(self.num_list)
-#                     self.equation = str(self.num1) + "+" + str(self.num2)
-#                     self.sum = self.num1 + self.num2
-#                     self.str_sum = str(self.sum)
-#
-#
-#
-#             color = self.color_on if self.active else self.color_off
-#             pygame.draw.rect(self.screen, color, self.answer_box, 2)
-#             user_answer = self.base_font.render(self.user_text, True, (40, 253, 21))
-#             self.screen.blit(user_answer, (self.answer_box.x + 5, self.answer_box.y + 5))
-#             self.answer_box.w = user_answer.get_width() + 30
-#
-#             pygame.draw.rect(self.screen, self.color_on, self.equation_rect, 2)
-#             equation_text = self.base_font.render(self.equation, True, (255, 255, 255))
-#             self.screen.blit(equation_text, (self.equation_rect.x + 5, self.equation_rect.y + 5))
-#
-#
-#             #L Shape
-#             pygame.draw.rect(self.screen, (34, 23), 3342, 3423)
-#             pygame.display.flip()
-#
-#     def quit(self):
-#         self.running = False
-#         pygame.quit()
+    def prob_nums(self):  #num generator
+        window.num1 = random.choice(window.num_list)
+        window.num2 = random.choice(window.num_list)
+        window.question_string = str(window.num1) + "+" + str(window.num2)
+        window.answer = window.num1 + window.num2
+        window.str_sum = str(window.answer)
 
 if __name__ == '__main__':
     pygame.init()
@@ -179,33 +115,35 @@ if __name__ == '__main__':
             if event.type == pygame.KEYDOWN:
                 if window.active:
                     if event.key == pygame.K_BACKSPACE:
-                        window.user_ans = window.user_ans[0:-1]
+                        window.user_ans = window.user_ans[0:-1]  #allow to delete
                     else:
-                        window.user_ans += event.unicode
+                        window.user_ans += event.unicode  #typ
         window.screenfill()
         window.answer_rect()
-        window.num_rect()
-        rando.prob_nums()
-        pygame.display.flip()
-        if window.str_sum == window.user_ans:
-            y += 1
+        window.square_rect()
+        window.mascot_rect()
+        if window.user_ans == window.str_sum:
+            if window.y == 120:
+                window.correct_pop()
+            window.y += 1
+            window.movement += 1
             user_correct = True
             keys = pygame.key.get_pressed()
             if keys[K_ESCAPE]:
                 running = False
             if keys[K_DOWN] and y < 650:
-                y += CONSTANT_VEL
+                window.y += CONSTANT_VEL
             if keys[K_LEFT] and x > 0:
-                x -= CONSTANT_VEL
+                window.x -= CONSTANT_VEL
             if keys[K_RIGHT] and x < 430:
-                x += CONSTANT_VEL
+                window.x += CONSTANT_VEL
             if keys[K_SPACE]:
                 rotation_angle += math.pi / 2
-            if user_correct and y > 650:
-                user_text = ""
+            if user_correct and window.y >= 650:
+                window.user_ans = ""
                 rotation_angle = 0
-                x = 210
-                y = 120
-                rando.prob_nums() #not working
-
-    #answer to question is not regenerating new numbers.
+                window.x = 210
+                window.y = 120
+                rando.prob_nums()
+        window.num_rect()
+        pygame.display.flip()
