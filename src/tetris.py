@@ -53,7 +53,7 @@ class Rects:
         self.screen.blit(equation_text, (self.equation_rect.x + 5, self.equation_rect.y + 5))
         return self.str_sum
 
-    def correct_pop(self): #correct popup
+    def correct_pop(self):  #correct popup
         message_on = True
         for t in range(10):
             text = " "
@@ -68,19 +68,19 @@ class Rects:
             pygame.display.flip()
             pygame.time.delay(0)
 
-    def square_rect(self): #square shape
-        pygame.draw.rect(self.screen, (0, 0, 0), (self.x-2, self.y, 44, 44))
-        pygame.draw.rect(self.screen, (253, 216, 53), (self.x, self.y+2, 40, 40))
+    def square_rect(self):
+        #square shape
+        pygame.draw.rect(self.screen, (0, 0, 0), (self.x - 2, self.y, 44, 44))
+        pygame.draw.rect(self.screen, (253, 216, 53), (self.x, self.y + 2, 40, 40))
+        #L shape
+        l_shape = pygame.draw.polygon(self.screen, (0, 0, 0), ([165, 300], [165, 250], [165, 300]))
 
-    def mascot_rect(self): #dog goes into abyss
+    def mascot_rect(self):  #dog goes into abyss
         if self.user_ans != "":
-            doggy = pygame.draw.rect(self.screen, (114, 79, 169 ), (self.movement, 40, 80, 80))
+            doggy = pygame.draw.rect(self.screen, (114, 79, 169), (self.movement, 40, 80, 80))
             image = pygame.image.load('pixel-art-cute-fox-png-t3atin7a90wibunw.png')
             image = pygame.transform.scale(image, (doggy.height, doggy.width))
             self.screen.blit(image, doggy)
-
-
-
 
 
 class Nums(Rects):
@@ -91,6 +91,7 @@ class Nums(Rects):
         window.question_string = str(window.num1) + "+" + str(window.num2)
         window.answer = window.num1 + window.num2
         window.str_sum = str(window.answer)
+
 
 if __name__ == '__main__':
     pygame.init()
