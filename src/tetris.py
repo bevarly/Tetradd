@@ -73,9 +73,9 @@ class Rects:
         pygame.draw.rect(self.screen, (0, 0, 0), (self.x - 2, self.y, 44, 44))
         pygame.draw.rect(self.screen, (253, 216, 53), (self.x, self.y + 2, 40, 40))
         #L shape
-        l_shape = pygame.draw.polygon(self.screen, (0, 0, 0), ([165, 300], [165, 250], [165, 300]))
-
-    def mascot_rect(self):  #dog goes into abyss
+        # l_shape = pygame.draw.polygon(self.screen, (0, 0, 0), ([165, 300], [165, 250], [165, 300]))
+        #work in progress, generating more shapes.
+    def mascot_rect(self):  #dog goes into abyss, work in progress
         if self.user_ans != "":
             doggy = pygame.draw.rect(self.screen, (114, 79, 169), (self.movement, 40, 80, 80))
             image = pygame.image.load('pixel-art-cute-fox-png-t3atin7a90wibunw.png')
