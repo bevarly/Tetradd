@@ -34,6 +34,8 @@ class Rects:
         self.x = 210
         self.y = 120
         self.movement = 275
+        self.count_list = [0, 1, 2, 3]
+        self.counter = 0
 
     def screenfill(self):
         self.screen.fill(self.colors)
@@ -56,7 +58,6 @@ class Rects:
     def correct_pop(self):  #correct popup
         message_on = True
         for t in range(10):
-            text = " "
             if message_on:
                 text = "CORRECT!"
             else:
@@ -69,12 +70,35 @@ class Rects:
             pygame.time.delay(0)
 
     def square_rect(self):
-        #square shape
-        pygame.draw.rect(self.screen, (0, 0, 0), (self.x - 2, self.y, 44, 44))
-        pygame.draw.rect(self.screen, (253, 216, 53), (self.x, self.y + 2, 40, 40))
-        #L shape
-        # l_shape = pygame.draw.polygon(self.screen, (0, 0, 0), ([165, 300], [165, 250], [165, 300]))
-        #work in progress, generating more shapes.
+        if (self.counter == 0):
+            #square shape
+            pygame.draw.rect(self.screen, (0, 0, 0), (self.x - 2, self.y, 44, 44))
+            pygame.draw.rect(self.screen, (253, 216, 53), (self.x, self.y + 2, 40, 40))
+
+        elif self.counter == 1:
+            #L shape
+            pygame.draw.polygon(self.screen, (0, 0, 0),
+                                ([self.x, self.y], [self.x, self.y + 43], [self.x + 35, self.y + 43],
+                                 [self.x + 35, self.y + 28], [self.x + 13, self.y + 28], [self.x + 13, self.y]))
+
+            pygame.draw.polygon(self.screen, (54, 103, 244),
+                                ([self.x + 2, self.y + 2], [self.x + 2, self.y + 41], [self.x + 33, self.y + 41],
+                                 [self.x + 33, self.y + 30], [self.x + 11, self.y + 30], [self.x + 11, self.y + 2]))
+        elif self.counter == 2:
+            #T shape
+            pygame.draw.polygon(self.screen, (0, 0, 0), ([self.x-7, self.y], [self.x-7, self.y+13], [self.x+10, self.y+13], [self.x+10, self.y+35], [self.x+23, self.y+35],
+                                                         [self.x+23, self.y+13], [self.x+40, self.y+13], [self.x+40, self.y]))
+            pygame.draw.polygon(self.screen, (223, 29, 29), ([self.x-5, self.y+2], [self.x-5, self.y+10], [self.x+12, self.y+10], [self.x+12, self.y+32], [self.x+21, self.y+32],
+                                                         [self.x+21, self.y+10], [self.x+38, self.y+10], [self.x+38, self.y+2]))
+
+        elif self.counter == 3:
+            #I shape
+            pygame.draw.polygon(self.screen, (0, 0, 0),
+                                ([self.x-3, self.y], [self.x-3, self.y+50], [self.x+10, self.y+50], [self.x+10, self.y]))
+            pygame.draw.polygon(self.screen, (225, 12, 143),
+                                ([self.x-1, self.y+2], [self.x-1, self.y + 48], [self.x + 8, self.y + 48], [self.x + 8, self.y+2]))
+
+
     def mascot_rect(self):  #dog goes into abyss, work in progress
         if self.user_ans != "":
             doggy = pygame.draw.rect(self.screen, (114, 79, 169), (self.movement, 40, 80, 80))
@@ -146,5 +170,7 @@ if __name__ == '__main__':
                 window.x = 210
                 window.y = 120
                 rando.prob_nums()
+                window.counter = random.choice(window.count_list)
+                window.num_rect()
         window.num_rect()
         pygame.display.flip()
