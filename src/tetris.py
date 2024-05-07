@@ -72,8 +72,12 @@ class Rects:
     def square_rect(self):
         if (self.counter == 0):
             #square shape
-            pygame.draw.rect(self.screen, (0, 0, 0), (self.x - 2, self.y, 44, 44))
+            square = pygame.Rect((self.x - 2, self.y, 44, 44))
+            pygame.draw.rect(self.screen, (0, 0, 0), square)
             pygame.draw.rect(self.screen, (253, 216, 53), (self.x, self.y + 2, 40, 40))
+
+
+
 
         elif self.counter == 1:
             #L shape
@@ -86,9 +90,11 @@ class Rects:
                                  [self.x + 33, self.y + 30], [self.x + 11, self.y + 30], [self.x + 11, self.y + 2]))
         elif self.counter == 2:
             #T shape
-            pygame.draw.polygon(self.screen, (0, 0, 0), ([self.x-7, self.y], [self.x-7, self.y+13], [self.x+10, self.y+13], [self.x+10, self.y+35], [self.x+23, self.y+35],
+            pygame.draw.polygon(self.screen, (0, 0, 0), ([self.x-7, self.y], [self.x-7, self.y+13],
+                                                         [self.x+10, self.y+13], [self.x+10, self.y+35], [self.x+23, self.y+35],
                                                          [self.x+23, self.y+13], [self.x+40, self.y+13], [self.x+40, self.y]))
-            pygame.draw.polygon(self.screen, (223, 29, 29), ([self.x-5, self.y+2], [self.x-5, self.y+10], [self.x+12, self.y+10], [self.x+12, self.y+32], [self.x+21, self.y+32],
+            pygame.draw.polygon(self.screen, (223, 29, 29), ([self.x-5, self.y+2], [self.x-5, self.y+10],
+                                                             [self.x+12, self.y+10], [self.x+12, self.y+32], [self.x+21, self.y+32],
                                                          [self.x+21, self.y+10], [self.x+38, self.y+10], [self.x+38, self.y+2]))
 
         elif self.counter == 3:
