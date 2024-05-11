@@ -30,12 +30,6 @@ class Rects:
         self.question_string = str(self.num1) + "+" + str(self.num2)
         self.answer = self.num1 + self.num2
         self.str_sum = str(self.answer)
-        self.x = 210
-        self.y = 120
-        self.movement = 275
-        self.count_list = [0, 1, 2, 3]
-        self.counter = 0
-        self.SHAPES = []
 
     def screen_fill(self):
         self.screen.fill(self.colors)
@@ -69,15 +63,88 @@ class Rects:
             pygame.display.flip()
             pygame.time.delay(0)
 
-    # def updatePos(self):
+    #
+    # def mascot_rect(self):  #dog goes into abyss, work in progress
+    #     if window.active:
+    #         doggy = pygame.draw.rect(self.screen, (114, 79, 169), (self.movement, 40, 80, 80))
+    #         image = pygame.image.load('pixel-art-cute-fox-png-t3atin7a90wibunw.png')
+    #         image = pygame.transform.scale(image, (doggy.height, doggy.width))
+    #         self.screen.blit(image, doggy)
 
-    def square_rect(self):
-        #square shape
-        square = pygame.Rect((self.x - 2, self.y, 44, 44))
-        pygame.draw.rect(self.screen, (0, 0, 0), square)
-        pygame.draw.rect(self.screen, (253, 216, 53), (self.x, self.y + 2, 40, 40))
 
-    def l_shape(self):
+def prob_nums():  #num generator
+    window.num1 = random.choice(window.num_list)
+    window.num2 = random.choice(window.num_list)
+    window.question_string = str(window.num1) + "+" + str(window.num2)
+    window.answer = window.num1 + window.num2
+    window.str_sum = str(window.answer)
+
+
+class Blocks(Rects):
+    def __init__(self):
+        super().__init__()
+        self.x = 210
+        self.y = 120
+        self.CONSTANT_VEL = 5
+        self.movement = 275
+        self.rotation_angle = 0.0
+
+    def change_pos(self):
+        self.y += 1
+        keys = pygame.key.get_pressed()
+        if keys[K_DOWN] and self.y < 650:
+            self.y += self.CONSTANT_VEL
+        if keys[K_LEFT] and self.x > 0:
+            self.x -= self.CONSTANT_VEL
+        if keys[K_RIGHT] and self.x < 430:
+            self.x += self.CONSTANT_VEL
+        if keys[K_SPACE]:
+            self.rotation_angle += math.pi / 2
+
+    def square_in(self):
+        if self.y == 120:
+            return Square()
+        else:
+            pass
+
+    def l_shape_in(self):
+        if self.y == 120:
+            return l_shape()
+        else:
+            pass
+
+    def t_shape_in(self):
+        if self.y == 120:
+            return t_shape()
+        else:
+            pass
+
+    def line_shape_in(self):
+        if self.y == 120:
+            return line_shape()
+        else:
+            pass
+
+
+class Square(Rects):
+    def __init__(self):
+        super().__init__()
+        self.x = 210
+        self.y = 120
+
+    def draw(self):
+        #square
+        pygame.draw.rect(self.screen, (0, 0, 0), (self.x - 1, self.y, 42, 43))
+        pygame.draw.rect(self.screen, (253, 216, 53), (self.x, self.y + 1, 40, 41))
+
+
+class l_shape(Rects):
+    def __init__(self):
+        super().__init__()
+        self.x = 210
+        self.y = 120
+
+    def draw(self):
         #L shape
         pygame.draw.polygon(self.screen, (0, 0, 0),
                             ([self.x, self.y], [self.x, self.y + 43], [self.x + 35, self.y + 43],
@@ -87,7 +154,14 @@ class Rects:
                             ([self.x + 2, self.y + 2], [self.x + 2, self.y + 41], [self.x + 33, self.y + 41],
                              [self.x + 33, self.y + 30], [self.x + 11, self.y + 30], [self.x + 11, self.y + 2]))
 
-    def t_shape(self):
+
+class t_shape(Rects):
+    def __init__(self):
+        super().__init__()
+        self.x = 210
+        self.y = 120
+
+    def draw(self):
         #T shape
         pygame.draw.polygon(self.screen, (0, 0, 0), ([self.x - 7, self.y], [self.x - 7, self.y + 13],
                                                      [self.x + 10, self.y + 13], [self.x + 10, self.y + 40],
@@ -100,7 +174,14 @@ class Rects:
                                                          [self.x + 21, self.y + 10], [self.x + 38, self.y + 10],
                                                          [self.x + 38, self.y + 2]))
 
-    def line_shape(self):
+
+class line_shape(Rects):
+    def __init__(self):
+        super().__init__()
+        self.x = 210
+        self.y = 120
+
+    def draw(self):
         #I shape
         pygame.draw.polygon(self.screen, (0, 0, 0),
                             ([self.x - 3, self.y], [self.x - 3, self.y + 50], [self.x + 10, self.y + 50],
@@ -109,36 +190,21 @@ class Rects:
                             ([self.x - 1, self.y + 2], [self.x - 1, self.y + 48], [self.x + 8, self.y + 48],
                              [self.x + 8, self.y + 2]))
 
-    def mascot_rect(self):  #dog goes into abyss, work in progress
-        if window.active:
-            doggy = pygame.draw.rect(self.screen, (114, 79, 169), (self.movement, 40, 80, 80))
-            image = pygame.image.load('pixel-art-cute-fox-png-t3atin7a90wibunw.png')
-            image = pygame.transform.scale(image, (doggy.height, doggy.width))
-            self.screen.blit(image, doggy)
-
-
-class Nums(Rects):
-
-    def prob_nums(self):  #num generator
-        window.num1 = random.choice(window.num_list)
-        window.num2 = random.choice(window.num_list)
-        window.question_string = str(window.num1) + "+" + str(window.num2)
-        window.answer = window.num1 + window.num2
-        window.str_sum = str(window.answer)
-
-
-# class Shapes(pygame.sprite.Sprite):
-
 
 if __name__ == '__main__':
     pygame.init()
     window = Rects()
-    rando = Nums()
+
+    move = Blocks()
+    square = Blocks()
+    l_block = Blocks()
+    t_block = Blocks()
+    i_block = Blocks()
+    SHAPES = []
+    SHAPES.extend([square.square_in(), l_block.l_shape_in(), t_block.t_shape_in(), i_block.line_shape_in()])
+
+    #shapes
     clock = pygame.time.Clock()
-    y = 120
-    x = 210
-    CONSTANT_VEL = 5
-    rotation_angle = 0
     running = True
     while running:
         clock.tick(60)
@@ -158,29 +224,20 @@ if __name__ == '__main__':
                         window.user_ans += event.unicode  #typing method
         window.screen_fill()
         window.answer_rect()
-        # window.square_rect()
-        window.mascot_rect()
         # shape spawn
+        count = 0
+
         if window.user_ans == window.str_sum:
-            if window.y == 120:
+            if move.y == 120:
                 window.correct_pop()
-            window.y += 1
             user_correct = True
-            keys = pygame.key.get_pressed()
-            if keys[K_ESCAPE]:
-                running = False
-            if keys[K_DOWN] and y < 650:
-                window.y += CONSTANT_VEL
-            if keys[K_LEFT] and x > 0:
-                window.x -= CONSTANT_VEL
-            if keys[K_RIGHT] and x < 430:
-                window.x += CONSTANT_VEL
-            if keys[K_SPACE]:
-                rotation_angle += math.pi / 2
-            if user_correct and window.y >= 650:
+            move.change_pos()
+            if user_correct and move.y >= 650:
                 window.user_ans = ""
                 rotation_angle = 0
-                rando.prob_nums()
+                move.y = 120
+                count += 1
+                prob_nums()
 
         window.num_rect()
         pygame.display.flip()
