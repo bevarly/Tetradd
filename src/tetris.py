@@ -80,14 +80,20 @@ def prob_nums():  #num generator
     window.str_sum = str(window.answer)
 
 
-class Blocks(Rects):
-    def __init__(self):
-        super().__init__()
-        self.x = 210
-        self.y = 120
+class Blocks:
+    def __init__(self, screen, side, down):
+        self.screen = screen
+        self.x = side
+        self.y = down
         self.CONSTANT_VEL = 5
         self.movement = 275
         self.rotation_angle = 0.0
+        self.SHAPES = []
+        self.SHAPES.append(self.square)
+        self.SHAPES.append(self.i_shape)
+        self.SHAPES.append(self.t_shape)
+        self.SHAPES.append(self.l_shape)
+        self.current_shape = None
 
     def change_pos(self):
         self.y += 1
@@ -101,107 +107,61 @@ class Blocks(Rects):
         if keys[K_SPACE]:
             self.rotation_angle += math.pi / 2
 
-    def square_in(self):
-        if self.y == 120:
-            return Square()
-        else:
-            pass
+    def blocks_spawn(self):
+        spawn = random.choice(self.SHAPES)
+        self.current_shape = spawn
+        spawn()
+        return self.current_shape
 
-    def l_shape_in(self):
-        if self.y == 120:
-            return l_shape()
-        else:
-            pass
-
-    def t_shape_in(self):
-        if self.y == 120:
-            return t_shape()
-        else:
-            pass
-
-    def line_shape_in(self):
-        if self.y == 120:
-            return line_shape()
-        else:
-            pass
-
-
-class Square(Rects):
-    def __init__(self):
-        super().__init__()
-        self.x = 210
-        self.y = 120
-
-    def draw(self):
+    def square(self):
         #square
-        pygame.draw.rect(self.screen, (0, 0, 0), (self.x - 1, self.y, 42, 43))
-        pygame.draw.rect(self.screen, (253, 216, 53), (self.x, self.y + 1, 40, 41))
+        outline = pygame.draw.rect(self.screen, (0, 0, 0), (self.x - 1, self.y, 42, 43))
+        base = pygame.draw.rect(self.screen, (253, 216, 53), (self.x, self.y + 1, 40, 41))
+        return outline, base
 
-
-class l_shape(Rects):
-    def __init__(self):
-        super().__init__()
-        self.x = 210
-        self.y = 120
-
-    def draw(self):
-        #L shape
-        pygame.draw.polygon(self.screen, (0, 0, 0),
+    def l_shape(self):
+        outline = pygame.draw.polygon(self.screen, (0, 0, 0),
                             ([self.x, self.y], [self.x, self.y + 43], [self.x + 35, self.y + 43],
                              [self.x + 35, self.y + 28], [self.x + 13, self.y + 28], [self.x + 13, self.y]))
 
-        pygame.draw.polygon(self.screen, (54, 103, 244),
+        base = pygame.draw.polygon(self.screen, (54, 103, 244),
                             ([self.x + 2, self.y + 2], [self.x + 2, self.y + 41], [self.x + 33, self.y + 41],
                              [self.x + 33, self.y + 30], [self.x + 11, self.y + 30], [self.x + 11, self.y + 2]))
+        return outline, base
 
-
-class t_shape(Rects):
-    def __init__(self):
-        super().__init__()
-        self.x = 210
-        self.y = 120
-
-    def draw(self):
+    def t_shape(self):
         #T shape
-        pygame.draw.polygon(self.screen, (0, 0, 0), ([self.x - 7, self.y], [self.x - 7, self.y + 13],
+        outline = pygame.draw.polygon(self.screen, (0, 0, 0), ([self.x - 7, self.y], [self.x - 7, self.y + 13],
                                                      [self.x + 10, self.y + 13], [self.x + 10, self.y + 40],
                                                      [self.x + 23, self.y + 40],
                                                      [self.x + 23, self.y + 13], [self.x + 40, self.y + 13],
                                                      [self.x + 40, self.y]))
-        pygame.draw.polygon(self.screen, (223, 29, 29), ([self.x - 5, self.y + 2], [self.x - 5, self.y + 10],
+        base = pygame.draw.polygon(self.screen, (223, 29, 29), ([self.x - 5, self.y + 2], [self.x - 5, self.y + 10],
                                                          [self.x + 12, self.y + 10], [self.x + 12, self.y + 38],
                                                          [self.x + 21, self.y + 38],
                                                          [self.x + 21, self.y + 10], [self.x + 38, self.y + 10],
                                                          [self.x + 38, self.y + 2]))
+        return outline, base
 
-
-class line_shape(Rects):
-    def __init__(self):
-        super().__init__()
-        self.x = 210
-        self.y = 120
-
-    def draw(self):
+    def i_shape(self):
         #I shape
-        pygame.draw.polygon(self.screen, (0, 0, 0),
+        outline = pygame.draw.polygon(self.screen, (0, 0, 0),
                             ([self.x - 3, self.y], [self.x - 3, self.y + 50], [self.x + 10, self.y + 50],
                              [self.x + 10, self.y]))
-        pygame.draw.polygon(self.screen, (225, 12, 143),
+        base = pygame.draw.polygon(self.screen, (225, 12, 143),
                             ([self.x - 1, self.y + 2], [self.x - 1, self.y + 48], [self.x + 8, self.y + 48],
                              [self.x + 8, self.y + 2]))
+        return outline, base
 
 
 if __name__ == '__main__':
     pygame.init()
+    x = 120
+    y = 210
     window = Rects()
+    move = Blocks(window.screen, y, x)
+    shapes = Blocks(window.screen, y, x)
 
-    move = Blocks()
-    square = Blocks()
-    l_block = Blocks()
-    t_block = Blocks()
-    i_block = Blocks()
-    SHAPES = []
-    SHAPES.extend([square.square_in(), l_block.l_shape_in(), t_block.t_shape_in(), i_block.line_shape_in()])
 
     #shapes
     clock = pygame.time.Clock()
@@ -225,18 +185,18 @@ if __name__ == '__main__':
         window.screen_fill()
         window.answer_rect()
         # shape spawn
-        count = 0
-
         if window.user_ans == window.str_sum:
-            if move.y == 120:
+            if y == 210:
                 window.correct_pop()
+                shapes.blocks_spawn()
+            y += 1
+            shapes.current_shape()
             user_correct = True
-            move.change_pos()
-            if user_correct and move.y >= 650:
+            shapes.change_pos()
+            if user_correct and y >= 650:
                 window.user_ans = ""
                 rotation_angle = 0
-                move.y = 120
-                count += 1
+                y = 210
                 prob_nums()
 
         window.num_rect()
