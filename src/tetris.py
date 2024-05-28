@@ -34,7 +34,6 @@ class Blocks:
         self.SHAPES.append(self.t_shape)
         self.SHAPES.append(self.l_shape)
         self.current_shape = None
-        self.fallen_shapes = []
 
     def change_pos(self):
         self.y += 1
@@ -51,13 +50,18 @@ class Blocks:
         else:
             self.y = 649
 
-    def blocks_spawn(self):
+    def blocks_spawn(self, arr):
         spawn = random.choice(self.SHAPES)
         self.current_shape = spawn
         spawn()
+        arr.append(self.current_shape)
         return self.current_shape
 
-    def fallen_shapes(self):
+    def fallen_shapes(self, arr):
+        for shape in arr:
+            self.SHAPES
+            #stuck figuring out how to store shape positions as they land to the bottom
+
 
 
     def square(self):
@@ -136,7 +140,7 @@ if __name__ == '__main__':
         if window.user_ans == window.str_sum:
             if shapes.y == 120:
                 window.correct_pop()
-                shapes.blocks_spawn()
+                shapes.blocks_spawn(bottom_shapes)
             shapes.current_shape()
             user_correct = True
             shapes.change_pos()
@@ -145,6 +149,7 @@ if __name__ == '__main__':
                 window.user_ans = ""
                 rotation_angle = 0
                 prob_nums()
+                shapes.fallen_shapes(bottom_shapes)
 
         window.num_rect()
         pygame.display.flip()
