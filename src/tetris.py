@@ -54,14 +54,16 @@ class Blocks:
         spawn = random.choice(self.SHAPES)
         self.current_shape = spawn
         spawn()
-        arr.append(self.current_shape)
+
+        # if self.y >= 639:
+        #     arr.append(self.current_shape)
+        #     print(4)
         return self.current_shape
 
     def fallen_shapes(self, arr):
         for shape in arr:
-            self.SHAPES
-            #stuck figuring out how to store shape positions as they land to the bottom
-
+            print(shape)
+            # pygame.draw.rect(self.screen, (0, 0, 0), shape)
 
 
     def square(self):
@@ -150,6 +152,5 @@ if __name__ == '__main__':
                 rotation_angle = 0
                 prob_nums()
                 shapes.fallen_shapes(bottom_shapes)
-
         window.num_rect()
         pygame.display.flip()
